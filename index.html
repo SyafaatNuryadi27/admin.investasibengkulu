@@ -7,24 +7,44 @@
     
     <style>
         :root {
-            --bg-main: #f1f5f9;
-            --bg-card: #ffffff;
-            --bg-input: #f8fafc;
-            --border-color: #e2e8f0;
+            --bg-body: #f8fafc;
+            --bg-surface: #ffffff;
+            --bg-subtle: #f1f5f9;
+            --border-subtle: #e2e8f0;
             --border-focus: #0f766e;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --accent-brand: #0d9488;
-            --accent-brand-hover: #0f766e;
-            --accent-red: #e11d48;
-            --accent-blue: #2563eb;
-            --accent-amber: #d97706;
+            --text-main: #090d16;
+            --text-muted: #475569;
+            --text-light: #94a3b8;
+            --primary: #0f766e;
+            --primary-hover: #115e59;
+            --primary-light: #ccfbf1;
+            --primary-border: #5eead4;
+            --danger: #be123c;
+            --danger-bg: #fff1f2;
+            --danger-border: #fecdd3;
+            --info: #1d4ed8;
+            --warning: #b45309;
+            --success: #15803d;
             --radius-sm: 6px;
-            --radius-md: 10px;
-            --radius-lg: 14px;
-            --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
-            --shadow-md: 0 3px 5px -1px rgba(15, 23, 42, 0.05);
+            --radius-md: 8px;
+            --transition: all 0.15s ease;
+        }
+
+        body.dark-theme {
+            --bg-body: #030712;
+            --bg-surface: #0f172a;
+            --bg-subtle: #1e293b;
+            --border-subtle: #334155;
+            --border-focus: #2dd4bf;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-light: #64748b;
+            --primary: #2dd4bf;
+            --primary-hover: #14b8a6;
+            --primary-light: rgba(45, 212, 191, 0.12);
+            --primary-border: rgba(45, 212, 191, 0.3);
+            --danger-bg: rgba(190, 18, 60, 0.15);
+            --danger-border: rgba(190, 18, 60, 0.3);
         }
 
         *, *::before, *::after {
@@ -33,11 +53,16 @@
             padding: 0;
         }
 
+        html, body {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
         body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
+            background-color: var(--bg-body);
+            color: var(--text-main);
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 0.75rem;
+            font-size: 0.775rem;
             line-height: 1.4;
             min-height: 100vh;
             display: flex;
@@ -45,18 +70,18 @@
             -webkit-font-smoothing: antialiased;
         }
 
+        /* Header */
         header {
-            background-color: var(--bg-card);
-            border-bottom: 1px solid var(--border-color);
-            padding: 10px 20px;
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 8px 16px;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: var(--shadow-sm);
         }
 
         .header-container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -66,13 +91,13 @@
         .logo-wrapper {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .logo-icon {
             width: 28px;
             height: 28px;
-            background: linear-gradient(135deg, #0d9488, #0f766e);
+            background: var(--primary);
             border-radius: var(--radius-sm);
             display: flex;
             align-items: center;
@@ -85,425 +110,260 @@
         .logo-text {
             font-size: 0.95rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--text-main);
         }
 
         .logo-text span {
-            color: var(--accent-brand);
+            color: var(--primary);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .admin-badge {
             font-size: 0.675rem;
-            background: #f0fdf4;
-            color: var(--accent-brand);
-            padding: 3px 10px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 3px 8px;
             border-radius: 20px;
             font-weight: 600;
-            border: 1px solid #bbf7d0;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            border: 1px solid var(--primary-border);
         }
 
-        .admin-badge::before {
-            content: '';
-            width: 5px;
-            height: 5px;
-            background-color: var(--accent-brand);
-            border-radius: 50%;
-        }
-
+        /* Main Content */
         main {
-            max-width: 1200px;
+            max-width: 100%;
             width: 100%;
-            margin: 16px auto;
-            padding: 0 16px;
+            margin: 12px auto;
+            padding: 0 12px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 12px;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+        /* Compact Stats Bar */
+        .stats-bar {
+            display: flex;
+            gap: 12px;
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
         }
 
-        @media (max-width: 640px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .stat-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 10px 14px;
-            box-shadow: var(--shadow-sm);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background-color: var(--accent-brand);
-        }
-
-        .stat-card:nth-child(2)::after {
-            background-color: var(--accent-blue);
-        }
-
-        .stat-card:nth-child(3)::after {
-            background-color: var(--accent-amber);
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
         }
 
         .stat-label {
-            font-size: 0.6rem;
-            color: var(--text-secondary);
-            font-weight: 700;
+            color: var(--text-muted);
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
         }
 
         .stat-value {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-top: 2px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text-main);
         }
 
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 14px;
-            box-shadow: var(--shadow-sm);
+        /* Compact Section Layout */
+        .section-container {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 12px;
             display: flex;
             flex-direction: column;
+            gap: 10px;
         }
 
-        .card-header-flex {
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-subtle);
             padding-bottom: 8px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         h2 {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 700;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            color: var(--text-main);
         }
 
-        .scrollable-container {
-            max-height: 65vh;
+        /* Table & List Structure */
+        .table-responsive {
+            max-height: 72vh;
             overflow-y: auto;
-            padding-right: 4px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
         }
 
-        .scrollable-container::-webkit-scrollbar {
-            width: 4px;
-        }
-        .scrollable-container::-webkit-scrollbar-track {
-            background: #f8fafc;
-        }
-        .scrollable-container::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
+        table.compact-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.75rem;
         }
 
-        details.user-section-card {
-            background-color: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-md);
-            padding: 10px 12px;
-            transition: all 0.2s ease;
+        table.compact-table th, 
+        table.compact-table td {
+            padding: 6px 10px;
+            border-bottom: 1px solid var(--border-subtle);
+            vertical-align: middle;
         }
 
-        details.user-section-card[open] {
-            background-color: #ffffff;
-            border-color: #cbd5e1;
-            box-shadow: var(--shadow-sm);
+        table.compact-table th {
+            background-color: var(--bg-subtle);
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.675rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
-        summary.user-section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-            list-style: none;
+        table.compact-table tr:hover {
+            background-color: var(--bg-subtle);
         }
 
-        summary.user-section-header::-webkit-details-marker {
+        .sub-row {
+            background-color: var(--bg-subtle);
             display: none;
         }
 
-        .user-email {
-            font-weight: 700;
-            font-size: 0.775rem;
-            color: var(--text-primary);
+        .sub-row.active {
+            display: table-row;
         }
 
-        .user-uid {
-            font-size: 0.6rem;
-            color: var(--text-muted);
-        }
-
-        .burger-btn {
-            font-size: 0.85rem;
-            font-weight: 700;
-            background: #ffffff;
-            border: 1px solid var(--border-color);
-            padding: 3px 8px;
-            border-radius: var(--radius-sm);
-            color: var(--text-secondary);
-        }
-
-        details.user-section-card[open] .burger-btn {
-            background: var(--accent-brand);
-            color: #ffffff;
-            border-color: var(--accent-brand);
-        }
-
-        .user-body-content {
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed var(--border-color);
+        .sub-content-grid {
+            padding: 10px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
-        }
-
-        @media (max-width: 640px) {
-            .grid-3 {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .form-group label {
-            font-size: 0.6rem;
-            font-weight: 700;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-        }
-
+        /* Form Controls */
         .form-input {
-            width: 100%;
-            background-color: #ffffff;
-            border: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
             border-radius: var(--radius-sm);
             padding: 5px 8px;
-            font-size: 0.725rem;
-            font-weight: 500;
-            color: var(--text-primary);
+            font-size: 0.75rem;
+            color: var(--text-main);
             outline: none;
-            transition: all 0.2s ease;
+            transition: var(--transition);
         }
 
         .form-input:focus {
             border-color: var(--border-focus);
-            box-shadow: 0 0 0 2px rgba(13, 148, 136, 0.1);
         }
 
         select.form-input {
             cursor: pointer;
         }
 
+        /* Buttons */
         .btn {
             padding: 5px 10px;
             font-weight: 600;
             border-radius: var(--radius-sm);
             border: none;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.725rem;
             color: #fff;
-            background-color: var(--accent-brand);
-            transition: background-color 0.2s;
-            text-align: center;
+            background-color: var(--primary);
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            white-space: nowrap;
         }
 
         .btn:hover {
-            background-color: var(--accent-brand-hover);
+            background-color: var(--primary-hover);
         }
 
-        .btn-sm {
-            padding: 3px 6px;
+        .btn-subtle {
+            background: var(--bg-subtle);
+            color: var(--text-main);
+            border: 1px solid var(--border-subtle);
+        }
+
+        /* Badges */
+        .badge {
             font-size: 0.65rem;
-        }
-
-        .user-tx-list {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            margin-top: 4px;
-        }
-
-        .tx-item {
-            background: #f8fafc;
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-sm);
-            padding: 6px 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .tx-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1px;
-        }
-
-        .tx-meta {
-            font-size: 0.6rem;
-            color: var(--text-muted);
-        }
-
-        .record-badge {
-            font-size: 0.575rem;
             font-weight: 700;
-            padding: 1px 4px;
-            border-radius: 3px;
+            padding: 2px 6px;
+            border-radius: 4px;
             text-transform: uppercase;
         }
 
-        .badge-deposit {
-            background-color: #f0fdf4;
-            color: var(--accent-brand);
-            border: 1px solid #bbf7d0;
-        }
-
-        .badge-withdraw {
-            background-color: #fff1f2;
-            color: var(--accent-red);
-            border: 1px solid #fecdd3;
-        }
-
-        .badge-other {
-            background-color: #f1f5f9;
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-        }
+        .badge-deposit { background: var(--primary-light); color: var(--primary); border: 1px solid var(--primary-border); }
+        .badge-withdraw { background: var(--danger-bg); color: var(--danger); border: 1px solid var(--danger-border); }
+        .badge-pending { color: var(--warning); background: rgba(180, 83, 9, 0.1); }
+        .badge-berhasil { color: var(--success); background: rgba(21, 128, 61, 0.1); }
+        .badge-ditolak { color: var(--danger); background: var(--danger-bg); }
 
         .empty-state {
             text-align: center;
-            padding: 20px 10px;
-            color: var(--text-muted);
-            font-size: 0.725rem;
-            background-color: var(--bg-input);
-            border-radius: var(--radius-sm);
-            border: 1px dashed var(--border-color);
-        }
-
-        /* Custom Modern Modal Styles */
-        #custom-modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background-color: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-            animation: fadeIn 0.2s ease-out forwards;
-        }
-
-        .custom-modal-box {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: var(--radius-lg);
             padding: 24px;
-            max-width: 380px;
-            width: 100%;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            text-align: center;
-            transform: scale(0.95);
-            animation: scaleUp 0.2s ease-out forwards;
+            color: var(--text-light);
+            font-size: 0.75rem;
         }
 
-        .custom-modal-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background-color: #f0fdf4;
-            color: var(--accent-brand);
+        /* Toast Container */
+        #toast-container {
+            position: fixed;
+            bottom: 16px;
+            right: 16px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--primary);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin: 0 auto 14px auto;
-            border: 2px solid rgba(13, 148, 136, 0.2);
+            gap: 8px;
+            font-size: 0.75rem;
+            pointer-events: auto;
+            max-width: 300px;
+            color: var(--text-main);
         }
 
-        .custom-modal-icon.error {
-            background-color: #fff1f2;
-            color: var(--accent-red);
-            border-color: rgba(225, 29, 72, 0.2);
-        }
-
-        .custom-modal-title {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-            letter-spacing: -0.01em;
-        }
-
-        .custom-modal-message {
-            font-size: 0.78rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 18px;
-            font-weight: 500;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes scaleUp {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+        .toast.error { border-left-color: var(--danger); }
 
         footer {
-            background-color: var(--bg-card);
-            border-top: 1px solid var(--border-color);
-            padding: 8px;
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-subtle);
+            padding: 8px 16px;
             text-align: center;
-            font-size: 0.625rem;
-            color: var(--text-muted);
+            font-size: 0.675rem;
+            color: var(--text-light);
             margin-top: auto;
         }
     </style>
@@ -516,47 +376,55 @@
                 <div class="logo-icon">BI</div>
                 <div class="logo-text">Admin <span>Dashboard</span></div>
             </div>
-            <div class="admin-badge">Bengkulu Investasi (Real-Time)</div>
+            <div class="header-actions">
+                <button id="theme-toggle" class="btn btn-subtle" title="Ubah Tema">🌙 Tema</button>
+                <div class="admin-badge">Real-Time</div>
+            </div>
         </div>
     </header>
 
     <main>
-        <!-- Ringkasan Statistik -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Total Pengguna</div>
-                <div class="stat-value" id="stat-total-users">0</div>
+        <!-- Statistik Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-label">Total Pengguna:</span>
+                <span class="stat-value" id="stat-total-users">0</span>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">Total Transaksi</div>
-                <div class="stat-value" id="stat-total-tx">0</div>
+            <div class="stat-item">
+                <span class="stat-label">Total Transaksi:</span>
+                <span class="stat-value" id="stat-total-tx">0</span>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">Pending Approval</div>
-                <div class="stat-value" id="stat-pending-tx" style="color: var(--accent-amber);">0</div>
+            <div class="stat-item">
+                <span class="stat-label">Pending Approval:</span>
+                <span class="stat-value" id="stat-pending-tx" style="color: var(--warning);">0</span>
             </div>
         </div>
 
-        <!-- Panel Utama Terkelompok & Sistem Menu Burger per User -->
-        <section class="card">
-            <div class="card-header-flex">
-                <h2>Manajemen Saldo, Rate & Transaksi per Pengguna</h2>
+        <!-- Tabel Manajemen -->
+        <section class="section-container">
+            <div class="section-header">
+                <h2>Manajemen Saldo, Rate & Transaksi</h2>
+                <input type="text" id="search-user" class="form-input" placeholder="🔍 Cari email / UID..." style="width: 220px;">
             </div>
-            <div class="scrollable-container" id="user-container">
-                <div class="empty-state">Menghubungkan ke database secara real-time...</div>
+            <div class="table-responsive">
+                <table class="compact-table" id="user-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 35%;">Pengguna & UID</th>
+                            <th style="width: 20%;">WhatsApp</th>
+                            <th style="width: 15%;">Tx Count</th>
+                            <th style="width: 30%; text-align: right;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-table-body">
+                        <tr><td colspan="4" class="empty-state">Memuat data...</td></tr>
+                    </tbody>
+                </table>
             </div>
         </section>
     </main>
 
-    <!-- Custom Modern Modal Overlay -->
-    <div id="custom-modal-overlay">
-        <div class="custom-modal-box">
-            <div id="custom-modal-icon" class="custom-modal-icon">✓</div>
-            <h3 id="custom-modal-title" class="custom-modal-title">Pemberitahuan Sistem</h3>
-            <p id="custom-modal-message" class="custom-modal-message">Pesan notifikasi sistem...</p>
-            <button id="custom-modal-btn" class="btn" style="width: 100%;">Mengerti</button>
-        </div>
-    </div>
+    <div id="toast-container"></div>
 
     <footer>
         <p>&copy; 2026 bengkuluinvestasi.my.id &bull; Secure Real-Time Admin Panel</p>
@@ -581,31 +449,38 @@
         let usersData = {};
         let portfoliosData = {};
         let txDataMap = {};
+        let searchQuery = '';
 
-        // Helper untuk menampilkan Modal Kustom yang Elegan
-        function showNotification(title, message, isError = false) {
-            const overlay = document.getElementById('custom-modal-overlay');
-            const titleEl = document.getElementById('custom-modal-title');
-            const msgEl = document.getElementById('custom-modal-message');
-            const iconEl = document.getElementById('custom-modal-icon');
-            
-            titleEl.textContent = title;
-            msgEl.textContent = message;
-            
-            if (isError) {
-                iconEl.className = 'custom-modal-icon error';
-                iconEl.textContent = '!';
-            } else {
-                iconEl.className = 'custom-modal-icon';
-                iconEl.textContent = '✓';
-            }
-            
-            overlay.style.display = 'flex';
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const savedTheme = localStorage.getItem('admin_theme') || 'light';
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+            themeToggleBtn.textContent = '☀️ Terang';
         }
 
-        document.getElementById('custom-modal-btn').addEventListener('click', () => {
-            document.getElementById('custom-modal-overlay').style.display = 'none';
+        themeToggleBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            localStorage.setItem('admin_theme', isDark ? 'dark' : 'light');
+            themeToggleBtn.textContent = isDark ? '☀️ Terang' : '🌙 Tema';
         });
+
+        document.getElementById('search-user').addEventListener('input', (e) => {
+            searchQuery = e.target.value.toLowerCase().trim();
+            renderAdminDashboard();
+        });
+
+        function showToast(message, isError = false) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${isError ? 'error' : ''}`;
+            toast.innerHTML = `<span>${isError ? '⚠️' : '✓'}</span><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 200);
+            }, 3000);
+        }
 
         document.addEventListener('DOMContentLoaded', () => {
             inisialisasiRealtimeAdmin();
@@ -614,141 +489,168 @@
         function inisialisasiRealtimeAdmin() {
             onSnapshot(collection(db, "users"), (snapshot) => {
                 usersData = {};
-                snapshot.forEach(docSnap => {
-                    usersData[docSnap.id] = docSnap.data();
-                });
+                snapshot.forEach(docSnap => { usersData[docSnap.id] = docSnap.data(); });
                 document.getElementById('stat-total-users').textContent = snapshot.size;
                 renderAdminDashboard();
-            }, (error) => {
-                console.error("Gagal mendengarkan data users:", error);
             });
 
             onSnapshot(collection(db, "portfolios"), (snapshot) => {
                 portfoliosData = {};
-                snapshot.forEach(docSnap => {
-                    portfoliosData[docSnap.id] = docSnap.data();
-                });
+                snapshot.forEach(docSnap => { portfoliosData[docSnap.id] = docSnap.data(); });
                 renderAdminDashboard();
-            }, (error) => {
-                console.error("Gagal mendengarkan data portfolios:", error);
             });
 
             onSnapshot(collection(db, "transactions"), (snapshot) => {
                 txDataMap = {};
                 let pendingCount = 0;
-
                 snapshot.forEach(txDoc => {
                     const tx = txDoc.data();
-                    const txId = txDoc.id;
                     const uid = tx.userId;
-                    const statusVal = tx.status || 'Pending';
-
-                    if (statusVal === 'Pending') pendingCount++;
-
-                    if (!txDataMap[uid]) {
-                        txDataMap[uid] = [];
-                    }
-                    txDataMap[uid].push({ id: txId, ...tx });
+                    if ((tx.status || 'Pending') === 'Pending') pendingCount++;
+                    if (!txDataMap[uid]) txDataMap[uid] = [];
+                    txDataMap[uid].push({ id: txDoc.id, ...tx });
                 });
-
                 document.getElementById('stat-total-tx').textContent = snapshot.size;
                 document.getElementById('stat-pending-tx').textContent = pendingCount;
                 renderAdminDashboard();
-            }, (error) => {
-                console.error("Gagal mendengarkan data transactions:", error);
             });
         }
 
-        function renderAdminDashboard() {
-            const userContainer = document.getElementById('user-container');
-            if (!userContainer) return;
+        window.toggleRow = function(uid) {
+            const subRow = document.getElementById(`sub-${uid}`);
+            if (subRow) {
+                subRow.classList.toggle('active');
+            }
+        }
 
-            const userIds = Object.keys(usersData);
+        function renderAdminDashboard() {
+            const tbody = document.getElementById('user-table-body');
+            if (!tbody) return;
+
+            let userIds = Object.keys(usersData);
             if (userIds.length === 0) {
-                userContainer.innerHTML = `<div class="empty-state">Belum ada data pengguna.</div>`;
+                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">Belum ada pengguna terdaftar.</td></tr>`;
                 return;
             }
 
-            userContainer.innerHTML = '';
+            if (searchQuery) {
+                userIds = userIds.filter(uid => {
+                    const u = usersData[uid] || {};
+                    return uid.toLowerCase().includes(searchQuery) || 
+                           (u.email || '').toLowerCase().includes(searchQuery) || 
+                           (u.fullname || '').toLowerCase().includes(searchQuery);
+                });
+            }
+
+            if (userIds.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">Tidak ditemukan hasil untuk "${searchQuery}".</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = '';
 
             userIds.forEach(uid => {
                 const userData = usersData[uid] || {};
-                const portfolio = portfoliosData[uid] || { modalUtama: 0, totalProfitTerkumpul: 0, rateHarian: 0.05 };
+                const portfolio = portfoliosData[uid] || { modalUtama: 0, totalProfitTerkumpul: 0, rateHarian: 0.05, statusUndangTeman: 'belum' };
                 const userTxs = txDataMap[uid] || [];
-
                 userTxs.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
-                let txHtml = '';
+                const rawWa = userData.whatsapp || userData.phone || userData.noWhatsApp || userData.noWa || userData.nohp || '';
+                const waFormatted = rawWa.trim() !== '' ? rawWa.trim() : null;
+                const waLink = waFormatted ? `https://wa.me/${waFormatted.replace(/[^0-9]/g, '')}` : null;
+
+                let txRowsHtml = '';
                 if (userTxs.length === 0) {
-                    txHtml = `<div class="empty-state" style="padding: 8px; font-size: 0.65rem;">Tidak ada transaksi untuk user ini.</div>`;
+                    txRowsHtml = `<tr><td colspan="4" class="empty-state">Tidak ada transaksi.</td></tr>`;
                 } else {
                     userTxs.forEach(tx => {
                         const statusVal = tx.status || 'Pending';
-                        const tipeLower = (tx.tipe || '').toLowerCase();
-                        let badgeClass = 'badge-other';
-                        if (tipeLower.includes('deposit')) badgeClass = 'badge-deposit';
-                        else if (tipeLower.includes('penarikan')) badgeClass = 'badge-withdraw';
+                        let badgeCls = 'badge-pending';
+                        if (statusVal === 'Berhasil') badgeCls = 'badge-berhasil';
+                        else if (statusVal === 'Ditolak') badgeCls = 'badge-ditolak';
 
-                        txHtml += `
-                            <div class="tx-item">
-                                <div class="tx-info">
-                                    <div>
-                                        <span class="record-badge ${badgeClass}">${tx.tipe || 'Transaksi'}</span>
-                                        <strong style="margin-left: 4px;">Rp ${Number(tx.jumlah || 0).toLocaleString('id-ID')}</strong>
-                                        ${tx.bank ? `<span style="font-size: 0.6rem; color: var(--text-secondary); margin-left: 4px;">(${tx.bank} - ${tx.noRekening})</span>` : ''}
-                                    </div>
-                                    <div class="tx-meta">Waktu: <input type="text" id="waktu-${tx.id}" value="${tx.waktu || ''}" style="font-size: 0.625rem; padding: 2px 4px; border: 1px solid var(--border-color); border-radius: 3px; width: 110px;"></div>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 4px;">
-                                    <select id="status-${tx.id}" class="form-input" style="padding: 2px 4px; font-size: 0.65rem; width: auto;">
+                        const tipeLower = (tx.tipe || '').toLowerCase();
+                        let tipeBadgeCls = 'badge';
+                        if (tipeLower.includes('deposit')) tipeBadgeCls += ' badge-deposit';
+                        else if (tipeLower.includes('penarikan')) tipeBadgeCls += ' badge-withdraw';
+
+                        txRowsHtml += `
+                            <tr>
+                                <td><span class="${tipeBadgeCls}">${tx.tipe || 'Tx'}</span></td>
+                                <td><strong>Rp ${Number(tx.jumlah || 0).toLocaleString('id-ID')}</strong> ${tx.bank ? `(${tx.bank})` : ''}</td>
+                                <td><input type="text" id="waktu-${tx.id}" value="${tx.waktu || ''}" class="form-input" style="width: 130px;"></td>
+                                <td style="display: flex; gap: 4px; align-items: center;">
+                                    <select id="status-${tx.id}" class="form-input" style="width: 90px;">
                                         <option value="Pending" ${statusVal === 'Pending' ? 'selected' : ''}>Pending</option>
                                         <option value="Berhasil" ${statusVal === 'Berhasil' ? 'selected' : ''}>Berhasil</option>
                                         <option value="Ditolak" ${statusVal === 'Ditolak' ? 'selected' : ''}>Ditolak</option>
                                     </select>
-                                    <button class="btn btn-sm" onclick="simpanTransaksi('${tx.id}')">Update</button>
-                                </div>
-                            </div>
+                                    <button class="btn" onclick="simpanTransaksi('${tx.id}')">Update</button>
+                                </td>
+                            </tr>
                         `;
                     });
                 }
 
-                const card = `
-                    <details class="user-section-card">
-                        <summary class="user-section-header">
-                            <div>
-                                <div class="user-email">${userData.email || userData.fullname || 'Pengguna'}</div>
-                                <div class="user-uid">UID: ${uid} &bull; Transaksi: ${userTxs.length}</div>
-                            </div>
-                            <div class="burger-btn">☰ Menu</div>
-                        </summary>
-                        <div class="user-body-content">
-                            <div style="display: flex; justify-content: flex-end; margin-bottom: 2px;">
-                                <button class="btn btn-sm" onclick="simpanPortfolio('${uid}')">Simpan Saldo</button>
-                            </div>
-                            <div class="grid-3">
-                                <div class="form-group">
-                                    <label>Modal Utama</label>
-                                    <input type="number" id="modal-${uid}" class="form-input" value="${portfolio.modalUtama || 0}">
+                const mainRow = `
+                    <tr>
+                        <td>
+                            <strong style="display: block; font-size: 0.8rem;">${userData.email || userData.fullname || 'Tanpa Nama'}</strong>
+                            <span style="color: var(--text-light); font-family: monospace; font-size: 0.65rem;">UID: ${uid}</span>
+                        </td>
+                        <td>
+                            ${waFormatted ? `<a href="${waLink}" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">${waFormatted}</a>` : '-'}
+                        </td>
+                        <td>${userTxs.length} Transaksi</td>
+                        <td style="text-align: right;">
+                            <button class="btn btn-subtle" onclick="toggleRow('${uid}')">Detail / Edit</button>
+                        </td>
+                    </tr>
+                    <tr id="sub-${uid}" class="sub-row">
+                        <td colspan="4">
+                            <div class="sub-content-grid">
+                                <div style="display: flex; gap: 8px; align-items: flex-end; background: var(--bg-surface); padding: 8px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); flex-wrap: wrap;">
+                                    <div style="flex: 1; min-width: 110px;">
+                                        <label style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Modal Utama</label>
+                                        <input type="number" id="modal-${uid}" class="form-input" value="${portfolio.modalUtama || 0}" style="width: 100%;">
+                                    </div>
+                                    <div style="flex: 1; min-width: 110px;">
+                                        <label style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Total Profit</label>
+                                        <input type="number" id="profit-${uid}" class="form-input" value="${portfolio.totalProfitTerkumpul || 0}" style="width: 100%;">
+                                    </div>
+                                    <div style="flex: 1; min-width: 90px;">
+                                        <label style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Rate Harian</label>
+                                        <input type="number" step="0.01" id="rate-${uid}" class="form-input" value="${portfolio.rateHarian !== undefined ? portfolio.rateHarian : 0.05}" style="width: 100%;">
+                                    </div>
+                                    <div style="flex: 1; min-width: 130px;">
+                                        <label style="font-size: 0.65rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Status Undang Teman</label>
+                                        <select id="undang-${uid}" class="form-input" style="width: 100%;">
+                                            <option value="belum" ${portfolio.statusUndangTeman !== 'sudah' ? 'selected' : ''}>Belum (Blokir WD)</option>
+                                            <option value="sudah" ${portfolio.statusUndangTeman === 'sudah' ? 'selected' : ''}>Sudah (Buka WD)</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn" onclick="simpanPortfolio('${uid}')">Simpan Saldo</button>
                                 </div>
-                                <div class="form-group">
-                                    <label>Total Profit</label>
-                                    <input type="number" id="profit-${uid}" class="form-input" value="${portfolio.totalProfitTerkumpul || 0}">
-                                </div>
-                                <div class="form-group">
-                                    <label>Rate Harian</label>
-                                    <input type="number" step="0.01" id="rate-${uid}" class="form-input" value="${portfolio.rateHarian !== undefined ? portfolio.rateHarian : 0.05}">
+                                <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--bg-surface); overflow: hidden;">
+                                    <table class="compact-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 20%;">Tipe</th>
+                                                <th style="width: 30%;">Jumlah</th>
+                                                <th style="width: 25%;">Waktu</th>
+                                                <th style="width: 25%;">Status / Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${txRowsHtml}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                            <div style="margin-top: 4px;">
-                                <label style="font-size: 0.6rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; display: block; margin-bottom: 3px;">Riwayat & Persetujuan Transaksi User</label>
-                                <div class="user-tx-list">
-                                    ${txHtml}
-                                </div>
-                            </div>
-                        </div>
-                    </details>
+                        </td>
+                    </tr>
                 `;
-                userContainer.insertAdjacentHTML('beforeend', card);
+                tbody.insertAdjacentHTML('beforeend', mainRow);
             });
         }
 
@@ -756,109 +658,64 @@
             const modalBaru = parseFloat(document.getElementById(`modal-${uid}`).value) || 0;
             const profitBaru = parseFloat(document.getElementById(`profit-${uid}`).value) || 0;
             const rateBaru = parseFloat(document.getElementById(`rate-${uid}`).value) || 0.05;
+            const statusUndangBaru = document.getElementById(`undang-${uid}`).value;
 
             try {
-                const docRef = doc(db, "portfolios", uid);
-                await updateDoc(docRef, {
+                await updateDoc(doc(db, "portfolios", uid), {
                     modalUtama: modalBaru,
                     totalProfitTerkumpul: profitBaru,
                     rateHarian: rateBaru,
-                    updatedAt: new Date().toISOString(),
-                    lastUpdated: Date.now()
+                    statusUndangTeman: statusUndangBaru,
+                    updatedAt: new Date().toISOString()
                 });
-                showNotification('Berhasil', 'Portofolio berhasil diperbarui!');
+                showToast('Portofolio & status undang teman diperbarui!');
             } catch (error) {
-                console.error("Gagal menyimpan:", error);
-                showNotification('Kesalahan', 'Gagal memperbarui data.', true);
+                showToast('Gagal memperbarui portofolio.', true);
             }
         }
 
         window.simpanTransaksi = async function(txId) {
-            const waktuInput = document.getElementById(`waktu-${txId}`);
-            const statusInput = document.getElementById(`status-${txId}`);
-            if (!waktuInput || !statusInput) return;
-
-            const waktuBaru = waktuInput.value.trim();
-            const statusBaru = statusInput.value;
+            const waktuBaru = document.getElementById(`waktu-${txId}`).value.trim();
+            const statusBaru = document.getElementById(`status-${txId}`).value;
 
             try {
-                const txDocRef = doc(db, "transactions", txId);
-                const txSnap = await getDoc(txDocRef);
-
-                if (!txSnap.exists()) {
-                    showNotification('Kesalahan', 'Transaksi tidak ditemukan.', true);
-                    return;
-                }
+                const txRef = doc(db, "transactions", txId);
+                const txSnap = await getDoc(txRef);
+                if (!txSnap.exists()) return showToast('Transaksi tidak ditemukan.', true);
 
                 const txData = txSnap.data();
                 const statusLama = txData.status;
 
-                await updateDoc(txDocRef, {
-                    waktu: waktuBaru,
-                    status: statusBaru
-                });
+                await updateDoc(txRef, { waktu: waktuBaru, status: statusBaru });
 
                 if (statusBaru === 'Berhasil' && statusLama !== 'Berhasil') {
                     const uid = txData.userId;
                     const jumlahTx = Number(txData.jumlah) || 0;
+                    const pRef = doc(db, "portfolios", uid);
+                    const pSnap = await getDoc(pRef);
 
-                    const portfolioRef = doc(db, "portfolios", uid);
-                    const portfolioSnap = await getDoc(portfolioRef);
-
-                    let modalUtamaLama = 0;
-                    let totalProfitTerkumpul = 0;
-                    let rateHarian = 0.05;
-
-                    if (portfolioSnap.exists()) {
-                        const pData = portfolioSnap.data();
-                        modalUtamaLama = Number(pData.modalUtama) || 0;
-                        totalProfitTerkumpul = Number(pData.totalProfitTerkumpul) || 0;
-                        if (pData.rateHarian !== undefined) rateHarian = Number(pData.rateHarian);
+                    let modal = 0, profit = 0, rate = 0.05, statusUndang = 'belum';
+                    if (pSnap.exists()) {
+                        modal = Number(pSnap.data().modalUtama) || 0;
+                        profit = Number(pSnap.data().totalProfitTerkumpul) || 0;
+                        if (pSnap.data().rateHarian !== undefined) rate = Number(pSnap.data().rateHarian);
+                        if (pSnap.data().statusUndangTeman !== undefined) statusUndang = pSnap.data().statusUndangTeman;
                     }
 
                     if (txData.tipe === 'Deposit') {
-                        const modalBaru = modalUtamaLama + jumlahTx;
-                        await setDoc(portfolioRef, {
-                            modalUtama: modalBaru,
-                            totalProfitTerkumpul: totalProfitTerkumpul,
-                            rateHarian: rateHarian,
-                            updatedAt: new Date().toISOString(),
-                            lastUpdated: Date.now()
-                        }, { merge: true });
-
+                        modal += jumlahTx;
                     } else if (txData.tipe === 'Penarikan') {
-                        let sisaWd = jumlahTx;
-                        let modalBaru = modalUtamaLama;
-                        let profitBaru = totalProfitTerkumpul;
-
-                        if (modalBaru >= sisaWd) {
-                            modalBaru -= sisaWd;
-                            sisaWd = 0;
-                        } else {
-                            sisaWd -= modalBaru;
-                            modalBaru = 0;
-                            if (profitBaru >= sisaWd) {
-                                profitBaru -= sisaWd;
-                                sisaWd = 0;
-                            } else {
-                                profitBaru = 0;
-                            }
-                        }
-
-                        await setDoc(portfolioRef, {
-                            modalUtama: modalBaru,
-                            totalProfitTerkumpul: profitBaru,
-                            rateHarian: rateHarian,
-                            updatedAt: new Date().toISOString(),
-                            lastUpdated: Date.now()
-                        }, { merge: true });
+                        let sisa = jumlahTx;
+                        if (modal >= sisa) { modal -= sisa; sisa = 0; }
+                        else { sisa -= modal; modal = 0; if (profit >= sisa) { profit -= sisa; sisa = 0; } else { profit = 0; } }
                     }
+
+                    await setDoc(pRef, { modalUtama: modal, totalProfitTerkumpul: profit, rateHarian: rate, statusUndangTeman: statusUndang, updatedAt: new Date().toISOString() }, { merge: true });
                 }
 
-                showNotification('Berhasil', 'Transaksi berhasil diperbarui!');
+                showToast('Transaksi diperbarui!');
             } catch (error) {
-                console.error("Gagal memperbarui transaksi:", error);
-                showNotification('Kesalahan', 'Gagal memperbarui transaksi: ' + error.message, true);
+                showToast('Gagal: ' + error.message, true);
             }
         }
     </script>
