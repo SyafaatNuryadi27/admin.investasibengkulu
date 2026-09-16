@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Admin - Bengkulu Investasi</title>
+    <title>Panel Admin - Bengkulu Investasi Pro</title>
     
     <style>
         :root {
-            --bg-body: #f1f5f9;
+            --bg-body: #f8fafc;
             --bg-surface: #ffffff;
-            --bg-subtle: #f8fafc;
+            --bg-subtle: #f1f5f9;
             --border-subtle: #e2e8f0;
             --border-focus: #0f766e;
             --text-main: #0f172a;
@@ -26,12 +26,13 @@
             --warning-bg: #fffbeb;
             --success: #16a34a;
             --success-bg: #f0fdf4;
-            --sidebar-width: 260px;
+            --sidebar-width: 280px;
             --radius-sm: 8px;
             --radius-md: 12px;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.07), 0 2px 4px -2px rgb(0 0 0 / 0.07);
-            --transition: all 0.2s ease-in-out;
+            --radius-lg: 18px;
+            --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.04), 0 1px 2px -1px rgb(0 0 0 / 0.04);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.05);
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body.dark-theme {
@@ -51,8 +52,8 @@
             --danger-border: rgba(225, 29, 72, 0.3);
             --success-bg: rgba(22, 163, 74, 0.15);
             --warning-bg: rgba(217, 119, 6, 0.15);
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3);
+            --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.2);
+            --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.3);
         }
 
         *, *::before, *::after {
@@ -65,7 +66,7 @@
             background-color: var(--bg-body);
             color: var(--text-main);
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            font-size: 0.825rem;
+            font-size: 0.875rem;
             line-height: 1.5;
             min-height: 100vh;
             display: flex;
@@ -95,16 +96,16 @@
         }
 
         .sidebar-header {
-            padding: 20px 16px;
+            padding: 24px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             border-bottom: 1px solid var(--border-subtle);
         }
 
         .logo-icon {
-            width: 34px;
-            height: 34px;
+            width: 38px;
+            height: 38px;
             background: linear-gradient(135deg, var(--primary), var(--primary-hover));
             border-radius: var(--radius-sm);
             display: flex;
@@ -112,12 +113,12 @@
             justify-content: center;
             color: white;
             font-weight: 800;
-            font-size: 0.95rem;
+            font-size: 1rem;
             box-shadow: var(--shadow-sm);
         }
 
         .logo-text {
-            font-size: 1rem;
+            font-size: 1.05rem;
             font-weight: 800;
             color: var(--text-main);
             letter-spacing: -0.01em;
@@ -128,7 +129,7 @@
         }
 
         .sidebar-menu {
-            padding: 16px 12px;
+            padding: 20px 14px;
             display: flex;
             flex-direction: column;
             gap: 6px;
@@ -137,20 +138,20 @@
         }
 
         .menu-label {
-            font-size: 0.675rem;
+            font-size: 0.7rem;
             font-weight: 700;
             text-transform: uppercase;
             color: var(--text-light);
             padding: 0 10px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             letter-spacing: 0.05em;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 10px 12px;
+            gap: 12px;
+            padding: 10px 14px;
             color: var(--text-muted);
             text-decoration: none;
             font-weight: 600;
@@ -158,18 +159,28 @@
             transition: var(--transition);
         }
 
+        .menu-item svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
         .menu-item:hover, .menu-item.active {
             background-color: var(--primary-light);
             color: var(--primary);
         }
 
-        /* Container Dinamis Daftar Pengguna di Sidebar */
         .sidebar-users-container {
             display: flex;
             flex-direction: column;
             gap: 4px;
             overflow-y: auto;
-            max-height: calc(100vh - 280px);
+            max-height: calc(100vh - 340px);
             padding-right: 2px;
         }
 
@@ -182,7 +193,7 @@
         }
 
         .sidebar-footer {
-            padding: 16px;
+            padding: 16px 20px;
             border-top: 1px solid var(--border-subtle);
             font-size: 0.75rem;
             color: var(--text-light);
@@ -204,7 +215,7 @@
         header {
             background-color: var(--bg-surface);
             border-bottom: 1px solid var(--border-subtle);
-            padding: 12px 20px;
+            padding: 16px 24px;
             position: sticky;
             top: 0;
             z-index: 900;
@@ -212,13 +223,13 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: var(--shadow-sm);
-            gap: 10px;
+            gap: 12px;
         }
 
         .header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             min-width: 0;
         }
 
@@ -226,16 +237,25 @@
             background: none;
             border: 1px solid var(--border-subtle);
             color: var(--text-main);
-            width: 36px;
-            height: 36px;
+            width: 40px;
+            height: 40px;
             border-radius: var(--radius-sm);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
             flex-shrink: 0;
             transition: var(--transition);
+        }
+
+        .burger-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .burger-btn:hover {
@@ -244,7 +264,7 @@
         }
 
         .page-title {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-main);
             white-space: nowrap;
@@ -255,15 +275,15 @@
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             flex-shrink: 0;
         }
 
         .admin-badge {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             background: var(--primary-light);
             color: var(--primary);
-            padding: 5px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
             font-weight: 700;
             border: 1px solid var(--primary-border);
@@ -274,8 +294,8 @@
 
         .admin-badge::before {
             content: '';
-            width: 6px;
-            height: 6px;
+            width: 7px;
+            height: 7px;
             background-color: var(--primary);
             border-radius: 50%;
             animation: pulse 2s infinite;
@@ -289,72 +309,128 @@
 
         /* Main Content Layout */
         main {
-            padding: 20px;
+            padding: 24px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            max-width: 1400px;
+            gap: 24px;
+            max-width: 1300px;
             width: 100%;
             margin: 0 auto;
         }
 
-        /* Modern Stats Grid */
+        /* Stats & Analytics Dashboard Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
         }
 
         .stat-card {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 18px 20px;
+            padding: 22px 24px;
             box-shadow: var(--shadow-sm);
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 10px;
             position: relative;
             overflow: hidden;
             transition: var(--transition);
         }
 
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary);
+            opacity: 0.8;
+        }
+
         .stat-card:hover {
-            box-shadow: var(--shadow-md);
             border-color: var(--border-focus);
+            box-shadow: var(--shadow-md);
             transform: translateY(-2px);
         }
 
-        .stat-card-header {
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .stat-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-desc {
+            font-size: 0.775rem;
+            color: var(--text-light);
+        }
+
+        /* Chart Card */
+        .chart-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .chart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .stat-label {
-            color: var(--text-muted);
-            font-weight: 600;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-        }
-
-        .stat-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: var(--radius-sm);
+        .chart-bars {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.95rem;
+            align-items: flex-end;
+            gap: 14px;
+            height: 160px;
+            padding-top: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            overflow-x: auto;
+            padding-bottom: 6px;
         }
 
-        .stat-value {
-            font-weight: 800;
-            font-size: 1.5rem;
+        .chart-bar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            flex: 1;
+            min-width: 50px;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .chart-bar-fill {
+            width: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--primary-hover));
+            border-radius: 6px 6px 0 0;
+            min-height: 6px;
+        }
+
+        .chart-bar-count {
+            font-size: 0.725rem;
+            font-weight: 700;
             color: var(--text-main);
-            letter-spacing: -0.02em;
+        }
+
+        .chart-bar-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            white-space: nowrap;
         }
 
         /* Section Container */
@@ -362,11 +438,11 @@
             background-color: var(--bg-surface);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-md);
-            padding: 16px;
+            padding: 24px;
             box-shadow: var(--shadow-sm);
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .section-header {
@@ -374,119 +450,257 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 12px;
-            gap: 12px;
+            padding-bottom: 18px;
+            gap: 16px;
             flex-wrap: wrap;
         }
 
         h2 {
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-main);
+            letter-spacing: -0.01em;
         }
 
         /* Search input wrapper */
         .search-box {
             position: relative;
             width: 100%;
-            max-width: 260px;
+            max-width: 300px;
         }
 
         .search-box input {
             width: 100%;
-            padding-left: 34px;
+            padding-left: 38px;
         }
 
-        .search-box::before {
-            content: '🔍';
+        .search-icon-wrapper {
             position: absolute;
-            left: 10px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 0.8rem;
+            color: var(--text-light);
+            display: flex;
+            align-items: center;
             pointer-events: none;
         }
 
-        /* Table Structure */
-        .table-responsive {
-            max-height: 70vh;
-            overflow-y: auto;
-            overflow-x: auto;
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius-sm);
-            -webkit-overflow-scrolling: touch;
+        .search-icon-wrapper svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
-        table.compact-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.785rem;
-            min-width: 580px;
-        }
-
-        table.compact-table th, 
-        table.compact-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--border-subtle);
-            vertical-align: middle;
-        }
-
-        table.compact-table th {
-            background-color: var(--bg-subtle);
-            color: var(--text-muted);
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 0.03em;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        table.compact-table tr:hover {
-            background-color: var(--bg-subtle);
-        }
-
-        .sub-row {
-            background-color: var(--bg-subtle);
-            display: none;
-        }
-
-        .sub-row.active {
-            display: table-row;
-        }
-
-        .sub-content-grid {
-            padding: 12px;
+        /* USERS LIST TABLE/GRID */
+        .users-table-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
-        .portfolio-form-grid {
-            display: flex;
-            gap: 10px;
-            align-items: flex-end;
-            background: var(--bg-surface);
-            padding: 12px;
-            border-radius: var(--radius-sm);
+        .user-row-card {
+            background-color: var(--bg-surface);
             border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+
+        .user-row-card:hover {
+            border-color: var(--border-focus);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .user-row-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-grow: 1;
+            min-width: 0;
+        }
+
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+            border: 1px solid var(--primary-border);
+        }
+
+        .user-row-details {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            min-width: 0;
+        }
+
+        .user-row-email {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .user-row-meta {
+            font-size: 0.775rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
-        .portfolio-form-grid > div {
-            flex: 1;
-            min-width: 130px;
+        /* DETAIL VIEW STYLING (SEPARATED) */
+        #user-detail-view {
+            display: none;
+            flex-direction: column;
+            gap: 24px;
         }
 
-        /* Form Controls */
+        .detail-top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .detail-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .detail-panel-box {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 22px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .panel-box-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 12px;
+        }
+
+        .panel-box-title svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--primary);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .info-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .info-label {
+            font-size: 0.725rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-light);
+            letter-spacing: 0.04em;
+        }
+
+        .info-value {
+            font-size: 0.875rem;
+            color: var(--text-main);
+            font-weight: 500;
+            word-break: break-all;
+        }
+
+        .address-box {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        /* Transactions Table / List inside Detail View */
+        .transactions-section {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .tx-management-card {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            transition: var(--transition);
+        }
+
+        .tx-management-card:hover {
+            border-color: var(--border-focus);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 0.725rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
         .form-input {
             background-color: var(--bg-surface);
             border: 1px solid var(--border-subtle);
             border-radius: var(--radius-sm);
-            padding: 7px 10px;
-            font-size: 0.775rem;
+            padding: 10px 14px;
+            font-size: 0.875rem;
             color: var(--text-main);
             outline: none;
             transition: var(--transition);
@@ -502,23 +716,32 @@
             cursor: pointer;
         }
 
-        /* Buttons */
         .btn {
-            padding: 7px 14px;
+            padding: 10px 18px;
             font-weight: 600;
             border-radius: var(--radius-sm);
             border: none;
             cursor: pointer;
-            font-size: 0.75rem;
+            font-size: 0.825rem;
             color: #fff;
             background-color: var(--primary);
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             white-space: nowrap;
             box-shadow: var(--shadow-sm);
+        }
+
+        .btn svg {
+            width: 15px;
+            height: 15px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .btn:hover {
@@ -535,17 +758,15 @@
 
         .btn-subtle:hover {
             background-color: var(--border-subtle);
-            color: var(--text-main);
         }
 
-        /* Badges */
         .badge {
-            font-size: 0.675rem;
+            font-size: 0.725rem;
             font-weight: 700;
-            padding: 3px 8px;
+            padding: 5px 12px;
             border-radius: 6px;
             text-transform: uppercase;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.03em;
             display: inline-block;
         }
 
@@ -557,12 +778,14 @@
 
         .empty-state {
             text-align: center;
-            padding: 32px;
+            padding: 48px 24px;
             color: var(--text-light);
-            font-size: 0.8rem;
+            font-size: 0.875rem;
+            background: var(--bg-subtle);
+            border-radius: var(--radius-sm);
+            border: 1px dashed var(--border-subtle);
         }
 
-        /* Overlay for mobile sidebar */
         .sidebar-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -579,16 +802,15 @@
             visibility: visible;
         }
 
-        /* Toast Container */
         #toast-container {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            left: 20px;
+            bottom: 24px;
+            right: 24px;
+            left: 24px;
             z-index: 9999;
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 10px;
             pointer-events: none;
             align-items: flex-end;
         }
@@ -598,20 +820,32 @@
             border: 1px solid var(--border-subtle);
             border-left: 4px solid var(--primary);
             border-radius: var(--radius-sm);
-            padding: 10px 16px;
+            padding: 14px 20px;
             box-shadow: var(--shadow-md);
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 0.775rem;
+            gap: 12px;
+            font-size: 0.85rem;
             pointer-events: auto;
-            max-width: 340px;
+            max-width: 380px;
             width: 100%;
             color: var(--text-main);
-            animation: slideIn 0.2s ease-out forwards;
+            animation: slideIn 0.25s ease-out forwards;
+        }
+
+        .toast svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            stroke: var(--primary);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .toast.error { border-left-color: var(--danger); }
+        .toast.error svg { stroke: var(--danger); }
 
         @keyframes slideIn {
             from { transform: translateY(100%); opacity: 0; }
@@ -621,14 +855,13 @@
         footer {
             background-color: var(--bg-surface);
             border-top: 1px solid var(--border-subtle);
-            padding: 14px 20px;
+            padding: 18px 24px;
             text-align: center;
-            font-size: 0.725rem;
+            font-size: 0.775rem;
             color: var(--text-light);
             margin-top: auto;
         }
 
-        /* Responsive Breakpoints for Mobile */
         @media (max-width: 1024px) {
             aside.sidebar {
                 transform: translateX(-100%);
@@ -643,28 +876,12 @@
         }
 
         @media (max-width: 640px) {
-            header {
-                padding: 10px 14px;
-            }
-            main {
-                padding: 12px;
-                gap: 14px;
-            }
-            .section-container {
-                padding: 12px;
-            }
-            .stat-value {
-                font-size: 1.25rem;
-            }
-            .portfolio-form-grid > div {
-                min-width: 100%;
-            }
-            .search-box {
-                max-width: 100%;
-            }
-            .admin-badge {
-                display: none;
-            }
+            header { padding: 12px 16px; }
+            main { padding: 16px; gap: 16px; }
+            .section-container { padding: 16px; }
+            .search-box { max-width: 100%; }
+            .admin-badge { display: none; }
+            .tx-management-card { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -679,13 +896,18 @@
             </div>
             <div class="sidebar-menu">
                 <span class="menu-label">Menu Utama</span>
-                <a href="#" class="menu-item active" onclick="resetFilter(event)">
-                    <span>📊</span> Semua Pengguna
+                <a href="#" class="menu-item active" id="menu-dashboard" onclick="showDashboard(event)">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                    <span>Dashboard & Statistik</span>
+                </a>
+                <a href="#" class="menu-item" id="menu-user-list" onclick="showUserList(event)">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    <span>Daftar Pengguna</span>
                 </a>
                 
-                <span class="menu-label" style="margin-top: 12px;">Daftar Pengguna</span>
+                <span class="menu-label" style="margin-top: 16px;">Akses Cepat Pengguna</span>
                 <div id="sidebar-users-container" class="sidebar-users-container">
-                    <span style="font-size: 0.725rem; color: var(--text-light); padding: 4px 10px;">Memuat pengguna...</span>
+                    <span style="font-size: 0.775rem; color: var(--text-light); padding: 6px 12px;">Memuat pengguna...</span>
                 </div>
             </div>
             <div class="sidebar-footer">
@@ -701,70 +923,155 @@
             <!-- Header -->
             <header>
                 <div class="header-left">
-                    <button class="burger-btn" id="burger-toggle" title="Buka Menu">☰</button>
-                    <h1 class="page-title">Panel Kontrol Admin</h1>
+                    <button class="burger-btn" id="burger-toggle" title="Buka Menu">
+                        <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    </button>
+                    <h1 class="page-title" id="header-page-title">Dashboard & Statistik</h1>
                 </div>
                 <div class="header-actions">
-                    <button id="theme-toggle" class="btn btn-subtle" title="Ubah Tema">🌙 Tema</button>
+                    <button id="theme-toggle" class="btn btn-subtle" title="Ubah Tema">
+                        <svg id="theme-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                        <span id="theme-text">Tema</span>
+                    </button>
                     <div class="admin-badge">Live Admin</div>
                 </div>
             </header>
 
             <!-- Main Contents -->
             <main>
-                <!-- Statistik Grid Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-card-header">
+                <!-- 1. ANALYTICS DASHBOARD VIEW (Tanpa Daftar Pengguna) -->
+                <div id="dashboard-analytics-container">
+                    <div class="stats-grid">
+                        <div class="stat-card">
                             <span class="stat-label">Total Pengguna</span>
-                            <div class="stat-icon" style="background: var(--primary-light); color: var(--primary);">👥</div>
+                            <span class="stat-value" id="stat-total-users">0</span>
+                            <span class="stat-desc">Akun terdaftar di sistem</span>
                         </div>
-                        <span class="stat-value" id="stat-total-users">0</span>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-card-header">
+                        <div class="stat-card">
                             <span class="stat-label">Total Transaksi</span>
-                            <div class="stat-icon" style="background: var(--bg-subtle); color: var(--text-main);">💳</div>
+                            <span class="stat-value" id="stat-total-tx">0</span>
+                            <span class="stat-desc" id="stat-total-amount">Rp 0</span>
                         </div>
-                        <span class="stat-value" id="stat-total-tx">0</span>
+                        <div class="stat-card">
+                            <span class="stat-label">Transaksi Pending</span>
+                            <span class="stat-value" id="stat-pending-tx" style="color: var(--warning);">0</span>
+                            <span class="stat-desc">Menunggu konfirmasi admin</span>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-card-header">
-                            <span class="stat-label">Pending Approval</span>
-                            <div class="stat-icon" style="background: var(--warning-bg); color: var(--warning);">⏳</div>
+
+                    <div class="chart-card" style="margin-top: 24px;">
+                        <div class="chart-header">
+                            <h2>Grafik Pengguna Baru Menurut Hari</h2>
+                            <span style="font-size: 0.775rem; color: var(--text-muted);">Aktivitas 7 Hari Terakhir</span>
                         </div>
-                        <span class="stat-value" id="stat-pending-tx" style="color: var(--warning);">0</span>
+                        <div class="chart-bars" id="chart-daily-users"></div>
                     </div>
                 </div>
 
-                <!-- Tabel Manajemen Utama -->
-                <section class="section-container">
+                <!-- 2. USER LIST VIEW (Halaman Terpisah untuk Daftar Pengguna) -->
+                <div id="user-list-view" class="section-container" style="display: none;">
                     <div class="section-header">
-                        <h2>Manajemen Saldo, Rate & Transaksi</h2>
+                        <h2>Daftar Pengguna Terdaftar</h2>
                         <div class="search-box">
-                            <input type="text" id="search-user" class="form-input" placeholder="Cari email / UID...">
+                            <div class="search-icon-wrapper">
+                                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            </div>
+                            <input type="text" id="search-user" class="form-input" placeholder="Cari email / UID / nama...">
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <table class="compact-table" id="user-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 35%;">Pengguna & UID</th>
-                                    <th style="width: 20%;">WhatsApp</th>
-                                    <th style="width: 15%;">Jumlah Tx</th>
-                                    <th style="width: 30%; text-align: right;">Aksi Kontrol</th>
-                                </tr>
-                            </thead>
-                            <tbody id="user-table-body">
-                                <tr><td colspan="4" class="empty-state">Memuat data real-time...</td></tr>
-                            </tbody>
-                        </table>
+                    
+                    <div id="users-list-container" class="users-table-list">
+                        <div class="empty-state">Memuat data real-time...</div>
                     </div>
-                </section>
+                </div>
+
+                <!-- 3. USER DETAIL VIEW (Profil & Alamat Terpisah dari Transaksi) -->
+                <div id="user-detail-view">
+                    <div class="detail-top-nav">
+                        <button class="btn btn-subtle" onclick="showUserList(event)">
+                            <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                            Kembali ke Daftar Pengguna
+                        </button>
+                        <span id="detail-user-email-header" style="font-weight: 700; font-size: 0.95rem; color: var(--primary);"></span>
+                    </div>
+
+                    <!-- GRID SECTION 1: PROFIL & ALAMAT + PORTOFOLIO -->
+                    <div class="detail-grid-layout">
+                        <!-- Profil & Alamat Pengguna (Terpisah) -->
+                        <div class="detail-panel-box">
+                            <div class="panel-box-title">
+                                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                Informasi Profil & Alamat
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label">Nama Lengkap / Akun</span>
+                                <span class="info-value" id="det-fullname">-</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label">Email Akun</span>
+                                <span class="info-value" id="det-email">-</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label">Nomor WhatsApp</span>
+                                <span class="info-value" id="det-whatsapp">-</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label">Alamat Pengguna</span>
+                                <div class="address-box" id="det-alamat">Memuat alamat...</div>
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label">UID Sistem</span>
+                                <span class="info-value" id="det-uid" style="font-family: monospace; font-size: 0.75rem; color: var(--text-light);">-</span>
+                            </div>
+                        </div>
+
+                        <!-- Portofolio & Keuangan Pengguna -->
+                        <div class="detail-panel-box">
+                            <div class="panel-box-title">
+                                <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                Portofolio & Pengaturan Saldo
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Modal Utama (Rp)</label>
+                                <input type="number" id="input-modal" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Total Profit Terkumpul (Rp)</label>
+                                <input type="number" id="input-profit" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Rate Harian (%)</label>
+                                <input type="number" step="0.01" id="input-rate" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Status Undang Teman</label>
+                                <select id="input-undang" class="form-input">
+                                    <option value="belum">Belum (Blokir WD)</option>
+                                    <option value="sudah">Sudah (Buka WD)</option>
+                                </select>
+                            </div>
+                            <button class="btn" style="margin-top: 4px;" onclick="simpanPortfolioAktif()">
+                                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                                Simpan Perubahan Portofolio
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- GRID SECTION 2: DAFTAR TRANSAKSI (Sepenuhnya Terpisah di Bawah) -->
+                    <div class="transactions-section">
+                        <div class="panel-box-title">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                            Riwayat & Manajemen Transaksi Pengguna
+                        </div>
+                        <div id="det-transactions-container" style="display: flex; flex-direction: column; gap: 12px;">
+                            <!-- Dynamic user transactions rendered here -->
+                        </div>
+                    </div>
+                </div>
             </main>
 
             <footer>
-                <p>bengkuluinvestasi.my.id &bull; Secure Real-Time Admin Panel Dashboard v2.0</p>
+                <p>bengkuluinvestasi.my.id &bull; Secure Real-Time Admin Panel Dashboard v3.1</p>
             </footer>
         </div>
     </div>
@@ -792,6 +1099,7 @@
         let portfoliosData = {};
         let txDataMap = {};
         let searchQuery = '';
+        let selectedUserId = null;
 
         // Sidebar Burger Toggle Logic
         const sidebar = document.getElementById('sidebar');
@@ -808,39 +1116,77 @@
 
         // Theme Switcher Logic
         const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
         const savedTheme = localStorage.getItem('admin_theme') || 'light';
+
         if (savedTheme === 'dark') {
             document.body.classList.add('dark-theme');
-            themeToggleBtn.textContent = '☀️ Terang';
+            themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+            themeText.textContent = 'Terang';
         }
 
         themeToggleBtn.addEventListener('click', () => {
             document.body.classList.toggle('dark-theme');
             const isDark = document.body.classList.contains('dark-theme');
             localStorage.setItem('admin_theme', isDark ? 'dark' : 'light');
-            themeToggleBtn.textContent = isDark ? '☀️ Terang' : '🌙 Tema';
+            if (isDark) {
+                themeIcon.innerHTML = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+                themeText.textContent = 'Terang';
+            } else {
+                themeIcon.innerHTML = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>`;
+                themeText.textContent = 'Tema';
+            }
         });
 
         document.getElementById('search-user').addEventListener('input', (e) => {
             searchQuery = e.target.value.toLowerCase().trim();
-            renderAdminDashboard();
-            renderSidebarUsers();
+            renderUserListView();
         });
 
-        window.resetFilter = function(e) {
+        window.showDashboard = function(e) {
             e.preventDefault();
+            selectedUserId = null;
             searchQuery = '';
             document.getElementById('search-user').value = '';
-            renderAdminDashboard();
+            document.getElementById('dashboard-analytics-container').style.display = 'block';
+            document.getElementById('user-list-view').style.display = 'none';
+            document.getElementById('user-detail-view').style.display = 'none';
+            document.getElementById('header-page-title').textContent = 'Dashboard & Statistik';
+            setActiveMenu('menu-dashboard');
             renderSidebarUsers();
-            if (window.innerWidth <= 1024) toggleSidebar();
+            if (window.innerWidth <= 1024 && sidebar.classList.contains('mobile-open')) toggleSidebar();
+        }
+
+        window.showUserList = function(e) {
+            e.preventDefault();
+            selectedUserId = null;
+            searchQuery = '';
+            document.getElementById('search-user').value = '';
+            document.getElementById('dashboard-analytics-container').style.display = 'none';
+            document.getElementById('user-list-view').style.display = 'flex';
+            document.getElementById('user-detail-view').style.display = 'none';
+            document.getElementById('header-page-title').textContent = 'Daftar Pengguna Terdaftar';
+            setActiveMenu('menu-user-list');
+            renderUserListView();
+            renderSidebarUsers();
+            if (window.innerWidth <= 1024 && sidebar.classList.contains('mobile-open')) toggleSidebar();
+        }
+
+        function setActiveMenu(menuId) {
+            document.querySelectorAll('.sidebar-menu > a').forEach(el => el.classList.remove('active'));
+            const target = document.getElementById(menuId);
+            if (target) target.classList.add('active');
         }
 
         function showToast(message, isError = false) {
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             toast.className = `toast ${isError ? 'error' : ''}`;
-            toast.innerHTML = `<span>${isError ? '⚠️' : '✓'}</span><span>${message}</span>`;
+            const iconSvg = isError 
+                ? `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`
+                : `<svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+            toast.innerHTML = `${iconSvg}<span>${message}</span>`;
             container.appendChild(toast);
             setTimeout(() => {
                 toast.style.opacity = '0';
@@ -856,38 +1202,30 @@
             onSnapshot(collection(db, "users"), (snapshot) => {
                 usersData = {};
                 snapshot.forEach(docSnap => { usersData[docSnap.id] = docSnap.data(); });
-                document.getElementById('stat-total-users').textContent = snapshot.size;
-                renderAdminDashboard();
+                renderAnalytics();
+                renderUserListView();
                 renderSidebarUsers();
+                if (selectedUserId) renderUserDetailView();
             });
 
             onSnapshot(collection(db, "portfolios"), (snapshot) => {
                 portfoliosData = {};
                 snapshot.forEach(docSnap => { portfoliosData[docSnap.id] = docSnap.data(); });
-                renderAdminDashboard();
+                renderAnalytics();
+                if (selectedUserId) renderUserDetailView();
             });
 
             onSnapshot(collection(db, "transactions"), (snapshot) => {
                 txDataMap = {};
-                let pendingCount = 0;
                 snapshot.forEach(txDoc => {
                     const tx = txDoc.data();
                     const uid = tx.userId;
-                    if ((tx.status || 'Pending') === 'Pending') pendingCount++;
                     if (!txDataMap[uid]) txDataMap[uid] = [];
                     txDataMap[uid].push({ id: txDoc.id, ...tx });
                 });
-                document.getElementById('stat-total-tx').textContent = snapshot.size;
-                document.getElementById('stat-pending-tx').textContent = pendingCount;
-                renderAdminDashboard();
+                renderAnalytics();
+                if (selectedUserId) renderUserDetailView();
             });
-        }
-
-        window.toggleRow = function(uid) {
-            const subRow = document.getElementById(`sub-${uid}`);
-            if (subRow) {
-                subRow.classList.toggle('active');
-            }
         }
 
         function renderSidebarUsers() {
@@ -896,7 +1234,7 @@
 
             let userIds = Object.keys(usersData);
             if (userIds.length === 0) {
-                container.innerHTML = `<span style="font-size: 0.725rem; color: var(--text-light); padding: 4px 10px;">Belum ada pengguna.</span>`;
+                container.innerHTML = `<span style="font-size: 0.775rem; color: var(--text-light); padding: 6px 12px;">Belum ada pengguna.</span>`;
                 return;
             }
 
@@ -904,33 +1242,99 @@
             userIds.forEach(uid => {
                 const u = usersData[uid] || {};
                 const displayName = u.email || u.fullname || uid.substring(0, 10) + '...';
-                const isSelected = searchQuery === uid.toLowerCase() || searchQuery === (u.email || '').toLowerCase();
+                const isSelected = selectedUserId === uid;
 
                 const item = document.createElement('a');
                 item.href = '#';
                 item.className = `menu-item ${isSelected ? 'active' : ''}`;
-                item.style.fontSize = '0.775rem';
-                item.style.padding = '8px 10px';
-                item.innerHTML = `<span>👤</span> <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${displayName}">${displayName}</span>`;
+                item.style.fontSize = '0.8rem';
+                item.style.padding = '8px 12px';
+                item.innerHTML = `
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    <span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${displayName}">${displayName}</span>
+                `;
                 item.onclick = (e) => {
                     e.preventDefault();
-                    searchQuery = uid.toLowerCase();
-                    document.getElementById('search-user').value = uid;
-                    renderAdminDashboard();
-                    renderSidebarUsers();
+                    selectUser(uid);
                     if (window.innerWidth <= 1024) toggleSidebar();
                 };
                 container.appendChild(item);
             });
         }
 
-        function renderAdminDashboard() {
-            const tbody = document.getElementById('user-table-body');
-            if (!tbody) return;
+        window.selectUser = function(uid) {
+            selectedUserId = uid;
+            document.querySelectorAll('.sidebar-users-container .menu-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('dashboard-analytics-container').style.display = 'none';
+            document.getElementById('user-list-view').style.display = 'none';
+            document.getElementById('user-detail-view').style.display = 'flex';
+            renderUserDetailView();
+            renderSidebarUsers();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderAnalytics() {
+            const totalUsersCount = Object.keys(usersData).length;
+            let totalTxCount = 0;
+            let totalTxAmount = 0;
+            let pendingTxCount = 0;
+            const daysMap = {};
+
+            for (let i = 6; i >= 0; i--) {
+                const d = new Date();
+                d.setDate(d.getDate() - i);
+                const dateStr = d.toISOString().split('T')[0];
+                const label = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+                daysMap[dateStr] = { label: label, count: 0 };
+            }
+
+            Object.values(usersData).forEach(u => {
+                const rawDate = u.createdAt || u.tanggal || u.joinedAt || '';
+                if (rawDate) {
+                    try {
+                        const dateStr = new Date(rawDate).toISOString().split('T')[0];
+                        if (daysMap[dateStr]) daysMap[dateStr].count++;
+                    } catch(e) {}
+                }
+            });
+
+            Object.values(txDataMap).forEach(txList => {
+                txList.forEach(tx => {
+                    totalTxCount++;
+                    totalTxAmount += Number(tx.jumlah || 0);
+                    if ((tx.status || '').toLowerCase() === 'pending') pendingTxCount++;
+                });
+            });
+
+            document.getElementById('stat-total-users').textContent = totalUsersCount;
+            document.getElementById('stat-total-tx').textContent = totalTxCount;
+            document.getElementById('stat-total-amount').textContent = `Total: Rp ${totalTxAmount.toLocaleString('id-ID')}`;
+            document.getElementById('stat-pending-tx').textContent = pendingTxCount;
+
+            const chartBarsEl = document.getElementById('chart-daily-users');
+            if (chartBarsEl) {
+                chartBarsEl.innerHTML = '';
+                const maxCount = Math.max(...Object.values(daysMap).map(d => d.count), 1);
+                Object.values(daysMap).forEach(day => {
+                    const heightPercent = Math.max((day.count / maxCount) * 100, 8);
+                    chartBarsEl.innerHTML += `
+                        <div class="chart-bar-item">
+                            <span class="chart-bar-count">${day.count}</span>
+                            <div class="chart-bar-fill" style="height: ${heightPercent}%;"></div>
+                            <span class="chart-bar-label">${day.label}</span>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function renderUserListView() {
+            const container = document.getElementById('users-list-container');
+            if (!container) return;
 
             let userIds = Object.keys(usersData);
             if (userIds.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">Belum ada pengguna terdaftar.</td></tr>`;
+                container.innerHTML = `<div class="empty-state">Belum ada pengguna terdaftar.</div>`;
                 return;
             }
 
@@ -939,126 +1343,121 @@
                     const u = usersData[uid] || {};
                     return uid.toLowerCase().includes(searchQuery) || 
                            (u.email || '').toLowerCase().includes(searchQuery) || 
-                           (u.fullname || '').toLowerCase().includes(searchQuery);
+                           (u.fullname || '').toLowerCase().includes(searchQuery) ||
+                           (u.alamat || u.address || '').toLowerCase().includes(searchQuery);
                 });
             }
 
             if (userIds.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="empty-state">Tidak ditemukan hasil untuk "${searchQuery}".</td></tr>`;
+                container.innerHTML = `<div class="empty-state">Tidak ditemukan pengguna yang cocok dengan pencarian.</div>`;
                 return;
             }
 
-            tbody.innerHTML = '';
-
+            container.innerHTML = '';
             userIds.forEach(uid => {
-                const userData = usersData[uid] || {};
-                const portfolio = portfoliosData[uid] || { modalUtama: 0, totalProfitTerkumpul: 0, rateHarian: 0.05, statusUndangTeman: 'belum' };
-                const userTxs = txDataMap[uid] || [];
-                userTxs.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+                const u = usersData[uid] || {};
+                const name = u.fullname || u.email || 'Tanpa Nama';
+                const initial = name.charAt(0).toUpperCase();
+                const addressText = u.alamat || u.address || 'Alamat belum diisi';
+                const txCount = (txDataMap[uid] || []).length;
 
-                const rawWa = userData.whatsapp || userData.phone || userData.noWhatsApp || userData.noWa || userData.nohp || '';
-                const waFormatted = rawWa.trim() !== '' ? rawWa.trim() : null;
-                const waLink = waFormatted ? `https://wa.me/${waFormatted.replace(/[^0-9]/g, '')}` : null;
-
-                let txRowsHtml = '';
-                if (userTxs.length === 0) {
-                    txRowsHtml = `<tr><td colspan="4" class="empty-state">Tidak ada transaksi.</td></tr>`;
-                } else {
-                    userTxs.forEach(tx => {
-                        const statusVal = tx.status || 'Pending';
-                        const tipeLower = (tx.tipe || '').toLowerCase();
-                        let tipeBadgeCls = 'badge';
-                        if (tipeLower.includes('deposit')) tipeBadgeCls += ' badge-deposit';
-                        else if (tipeLower.includes('penarikan')) tipeBadgeCls += ' badge-withdraw';
-
-                        txRowsHtml += `
-                            <tr>
-                                <td><span class="${tipeBadgeCls}">${tx.tipe || 'Tx'}</span></td>
-                                <td><strong>Rp ${Number(tx.jumlah || 0).toLocaleString('id-ID')}</strong> ${tx.bank ? `(${tx.bank})` : ''}</td>
-                                <td><input type="text" id="waktu-${tx.id}" value="${tx.waktu || ''}" class="form-input" style="width: 120px;"></td>
-                                <td style="display: flex; gap: 6px; align-items: center;">
-                                    <select id="status-${tx.id}" class="form-input" style="width: 90px;">
-                                        <option value="Pending" ${statusVal === 'Pending' ? 'selected' : ''}>Pending</option>
-                                        <option value="Berhasil" ${statusVal === 'Berhasil' ? 'selected' : ''}>Berhasil</option>
-                                        <option value="Ditolak" ${statusVal === 'Ditolak' ? 'selected' : ''}>Ditolak</option>
-                                    </select>
-                                    <button class="btn" onclick="simpanTransaksi('${tx.id}')">Update</button>
-                                </td>
-                            </tr>
-                        `;
-                    });
-                }
-
-                const mainRow = `
-                    <tr>
-                        <td>
-                            <strong style="display: block; font-size: 0.85rem; color: var(--text-main); word-break: break-all;">${userData.email || userData.fullname || 'Tanpa Nama'}</strong>
-                            <span style="color: var(--text-light); font-family: monospace; font-size: 0.7rem; word-break: break-all;">UID: ${uid}</span>
-                        </td>
-                        <td>
-                            ${waFormatted ? `<a href="${waLink}" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 600;">${waFormatted}</a>` : '-'}
-                        </td>
-                        <td><span style="font-weight: 600;">${userTxs.length}</span> Tx</td>
-                        <td style="text-align: right;">
-                            <button class="btn btn-subtle" onclick="toggleRow('${uid}')">⚙️ Detail</button>
-                        </td>
-                    </tr>
-                    <tr id="sub-${uid}" class="sub-row">
-                        <td colspan="4">
-                            <div class="sub-content-grid">
-                                <div class="portfolio-form-grid">
-                                    <div>
-                                        <label style="font-size: 0.675rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Modal Utama</label>
-                                        <input type="number" id="modal-${uid}" class="form-input" value="${portfolio.modalUtama || 0}">
-                                    </div>
-                                    <div>
-                                        <label style="font-size: 0.675rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Total Profit</label>
-                                        <input type="number" id="profit-${uid}" class="form-input" value="${portfolio.totalProfitTerkumpul || 0}">
-                                    </div>
-                                    <div>
-                                        <label style="font-size: 0.675rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Rate Harian</label>
-                                        <input type="number" step="0.01" id="rate-${uid}" class="form-input" value="${portfolio.rateHarian !== undefined ? portfolio.rateHarian : 0.05}">
-                                    </div>
-                                    <div>
-                                        <label style="font-size: 0.675rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Status Undang</label>
-                                        <select id="undang-${uid}" class="form-input">
-                                            <option value="belum" ${portfolio.statusUndangTeman !== 'sudah' ? 'selected' : ''}>Belum (Blokir WD)</option>
-                                            <option value="sudah" ${portfolio.statusUndangTeman === 'sudah' ? 'selected' : ''}>Sudah (Buka WD)</option>
-                                        </select>
-                                    </div>
-                                    <button class="btn" style="width: 100%;" onclick="simpanPortfolio('${uid}')">💾 Simpan Saldo</button>
-                                </div>
-                                <div style="border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--bg-surface); overflow-x: auto;">
-                                    <table class="compact-table" style="min-width: 500px;">
-                                        <thead>
-                                            <tr>
-                                                <th style="width: 20%;">Tipe</th>
-                                                <th style="width: 30%;">Jumlah</th>
-                                                <th style="width: 25%;">Waktu</th>
-                                                <th style="width: 25%;">Status / Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            ${txRowsHtml}
-                                        </tbody>
-                                    </table>
+                container.innerHTML += `
+                    <div class="user-row-card">
+                        <div class="user-row-info">
+                            <div class="user-avatar">${initial}</div>
+                            <div class="user-row-details">
+                                <span class="user-row-email">${name}</span>
+                                <div class="user-row-meta">
+                                    <span>UID: ${uid.substring(0, 10)}...</span>
+                                    <span>&bull;</span>
+                                    <span style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${addressText}">📍 ${addressText}</span>
+                                    <span>&bull;</span>
+                                    <span>${txCount} Transaksi</span>
                                 </div>
                             </div>
-                        </td>
-                    </tr>
+                        </div>
+                        <button class="btn" onclick="selectUser('${uid}')">
+                            <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                            Kelola Pengguna
+                        </button>
+                    </div>
                 `;
-                tbody.insertAdjacentHTML('beforeend', mainRow);
             });
         }
 
-        window.simpanPortfolio = async function(uid) {
-            const modalBaru = parseFloat(document.getElementById(`modal-${uid}`).value) || 0;
-            const profitBaru = parseFloat(document.getElementById(`profit-${uid}`).value) || 0;
-            const rateBaru = parseFloat(document.getElementById(`rate-${uid}`).value) || 0.05;
-            const statusUndangBaru = document.getElementById(`undang-${uid}`).value;
+        function renderUserDetailView() {
+            if (!selectedUserId) return;
+            const u = usersData[selectedUserId] || {};
+            const p = portfoliosData[selectedUserId] || { modalUtama: 0, totalProfitTerkumpul: 0, rateHarian: 0.05, statusUndangTeman: 'belum' };
+            const userTxs = txDataMap[selectedUserId] || [];
+            userTxs.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+
+            document.getElementById('header-page-title').textContent = `Detail Pengguna: ${u.email || u.fullname || selectedUserId}`;
+            document.getElementById('detail-user-email-header').textContent = u.email || u.fullname || '';
+
+            // Populate Profile & Address
+            document.getElementById('det-fullname').textContent = u.fullname || '-';
+            document.getElementById('det-email').textContent = u.email || '-';
+            document.getElementById('det-whatsapp').textContent = u.whatsapp || u.phone || u.noWhatsApp || u.noWa || '-';
+            document.getElementById('det-alamat').textContent = u.alamat || u.address || 'Belum ada alamat yang terdaftar.';
+            document.getElementById('det-uid').textContent = selectedUserId;
+
+            // Populate Portfolio inputs
+            document.getElementById('input-modal').value = p.modalUtama || 0;
+            document.getElementById('input-profit').value = p.totalProfitTerkumpul || 0;
+            document.getElementById('input-rate').value = p.rateHarian !== undefined ? p.rateHarian : 0.05;
+            document.getElementById('input-undang').value = p.statusUndangTeman === 'sudah' ? 'sudah' : 'belum';
+
+            // Populate Transactions (Completely separated at bottom)
+            const txContainer = document.getElementById('det-transactions-container');
+            if (userTxs.length === 0) {
+                txContainer.innerHTML = `<div class="empty-state">Tidak ada riwayat transaksi untuk pengguna ini.</div>`;
+                return;
+            }
+
+            txContainer.innerHTML = '';
+            userTxs.forEach(tx => {
+                const statusVal = tx.status || 'Pending';
+                const tipeLower = (tx.tipe || '').toLowerCase();
+                let badgeCls = 'badge';
+                if (tipeLower.includes('deposit')) badgeCls += ' badge-deposit';
+                else if (tipeLower.includes('penarikan')) badgeCls += ' badge-withdraw';
+
+                txContainer.innerHTML += `
+                    <div class="tx-management-card">
+                        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; flex-grow: 1;">
+                            <span class="${badgeCls}">${tx.tipe || 'Tx'}</span>
+                            <div>
+                                <strong style="font-size: 0.9rem;">Rp ${Number(tx.jumlah || 0).toLocaleString('id-ID')}</strong>
+                                ${tx.bank ? `<span style="color: var(--text-muted); font-size: 0.775rem;">(${tx.bank})</span>` : ''}
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                            <input type="text" id="waktu-${tx.id}" value="${tx.waktu || ''}" class="form-input" style="width: 110px;" placeholder="Waktu">
+                            <select id="status-${tx.id}" class="form-input" style="width: 105px;">
+                                <option value="Pending" ${statusVal === 'Pending' ? 'selected' : ''}>Pending</option>
+                                <option value="Berhasil" ${statusVal === 'Berhasil' ? 'selected' : ''}>Berhasil</option>
+                                <option value="Ditolak" ${statusVal === 'Ditolak' ? 'selected' : ''}>Ditolak</option>
+                            </select>
+                            <button class="btn" onclick="simpanTransaksi('${tx.id}')">
+                                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                                Update
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        window.simpanPortfolioAktif = async function() {
+            if (!selectedUserId) return;
+            const modalBaru = parseFloat(document.getElementById('input-modal').value) || 0;
+            const profitBaru = parseFloat(document.getElementById('input-profit').value) || 0;
+            const rateBaru = parseFloat(document.getElementById('input-rate').value) || 0.05;
+            const statusUndangBaru = document.getElementById('input-undang').value;
 
             try {
-                await updateDoc(doc(db, "portfolios", uid), {
+                await updateDoc(doc(db, "portfolios", selectedUserId), {
                     modalUtama: modalBaru,
                     totalProfitTerkumpul: profitBaru,
                     rateHarian: rateBaru,
