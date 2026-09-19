@@ -1307,11 +1307,20 @@
                 <div id="user-list-view" class="section-container" style="display: none;">
                     <div class="section-header">
                         <h2>Daftar Pengguna Terdaftar</h2>
-                        <div class="search-box">
-                            <div class="search-icon-wrapper">
-                                <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                            <!-- Dropdown Filter Urutan Tanggal -->
+                            <div class="form-group" style="margin: 0; min-width: 170px;">
+                                <select id="sort-user-date" class="form-input" onchange="renderUserListView()">
+                                    <option value="newest">Terbaru Bergabung</option>
+                                    <option value="oldest">Terlama Bergabung</option>
+                                </select>
                             </div>
-                            <input type="text" id="search-user" class="form-input" placeholder="Cari email / UID / nama...">
+                            <div class="search-box">
+                                <div class="search-icon-wrapper">
+                                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                </div>
+                                <input type="text" id="search-user" class="form-input" placeholder="Cari email / UID / nama...">
+                            </div>
                         </div>
                     </div>
                     
@@ -1781,6 +1790,7 @@
                 return;
             }
 
+            // 1. Filter berdasarkan pencarian
             if (searchQuery) {
                 userIds = userIds.filter(uid => {
                     const u = usersData[uid] || {};
@@ -1790,6 +1800,22 @@
                            (u.alamat || u.address || '').toLowerCase().includes(searchQuery);
                 });
             }
+
+            // 2. Urutkan berdasarkan Tanggal Bergabung
+            const sortOrder = document.getElementById('sort-user-date')?.value || 'newest';
+            userIds.sort((a, b) => {
+                const userA = usersData[a] || {};
+                const userB = usersData[b] || {};
+                
+                const dateA = new Date(userA.createdAt || userA.tanggal || userA.joinedAt || 0).getTime();
+                const dateB = new Date(userB.createdAt || userB.tanggal || userB.joinedAt || 0).getTime();
+
+                if (sortOrder === 'oldest') {
+                    return dateA - dateB; // Lama ke baru
+                } else {
+                    return dateB - dateA; // Baru ke lama (default)
+                }
+            });
 
             if (userIds.length === 0) {
                 container.innerHTML = `<div class="empty-state">Tidak ditemukan pengguna yang cocok dengan pencarian.</div>`;
@@ -1803,6 +1829,9 @@
                 const initial = name.charAt(0).toUpperCase();
                 const addressText = u.alamat || u.address || 'Alamat belum diisi';
                 const txCount = (txDataMap[uid] || []).length;
+                
+                const rawJoinDate = u.createdAt || u.tanggal || u.joinedAt;
+                const formattedDate = rawJoinDate ? new Date(rawJoinDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Tanggal tidak tercatat';
 
                 container.innerHTML += `
                     <div class="user-row-card">
@@ -1813,9 +1842,9 @@
                                 <div class="user-row-meta">
                                     <span>UID: ${uid.substring(0, 10)}...</span>
                                     <span>&bull;</span>
-                                    <span style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${addressText}">📍 ${addressText}</span>
+                                    <span>📅 ${formattedDate}</span>
                                     <span>&bull;</span>
-                                    <span>${txCount} Transaksi</span>
+                                    <span style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${addressText}">📍 ${addressText}</span>
                                 </div>
                             </div>
                         </div>
