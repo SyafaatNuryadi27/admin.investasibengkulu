@@ -848,6 +848,14 @@
             background-color: var(--border-subtle);
         }
 
+        .btn-danger {
+            background-color: var(--danger);
+        }
+
+        .btn-danger:hover {
+            background-color: #be123c;
+        }
+
         .badge {
             font-size: 0.725rem;
             font-weight: 700;
@@ -1182,7 +1190,7 @@
 
             <!-- Main Contents -->
             <main>
-                <!-- 1. ANALYTICS DASHBOARD VIEW (Tanpa Daftar Pengguna) -->
+                <!-- 1. ANALYTICS DASHBOARD VIEW -->
                 <div id="dashboard-analytics-container">
                     <div class="dashboard-overview">
                         <div>
@@ -1303,12 +1311,11 @@
                     </section>
                 </div>
 
-                <!-- 2. USER LIST VIEW (Halaman Terpisah untuk Daftar Pengguna) -->
+                <!-- 2. USER LIST VIEW -->
                 <div id="user-list-view" class="section-container" style="display: none;">
                     <div class="section-header">
                         <h2>Daftar Pengguna Terdaftar</h2>
                         <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
-                            <!-- Dropdown Filter Urutan Tanggal -->
                             <div class="form-group" style="margin: 0; min-width: 170px;">
                                 <select id="sort-user-date" class="form-input" onchange="renderUserListView()">
                                     <option value="newest">Terbaru Bergabung</option>
@@ -1329,19 +1336,25 @@
                     </div>
                 </div>
 
-                <!-- 3. USER DETAIL VIEW (Profil & Alamat Terpisah dari Transaksi) -->
+                <!-- 3. USER DETAIL VIEW -->
                 <div id="user-detail-view">
                     <div class="detail-top-nav">
                         <button class="btn btn-subtle" onclick="showUserList(event)">
                             <svg viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
                             Kembali ke Daftar Pengguna
                         </button>
-                        <span id="detail-user-email-header" style="font-weight: 700; font-size: 0.95rem; color: var(--primary);"></span>
+                        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                            <span id="detail-user-email-header" style="font-weight: 700; font-size: 0.95rem; color: var(--primary);"></span>
+                            <button class="btn btn-danger" onclick="hapusPenggunaAktif()">
+                                <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                                Hapus Pengguna
+                            </button>
+                        </div>
                     </div>
 
                     <!-- GRID SECTION 1: PROFIL & ALAMAT + PORTOFOLIO -->
                     <div class="detail-grid-layout">
-                        <!-- Profil & Alamat Pengguna (Terpisah) -->
+                        <!-- Profil & Alamat Pengguna -->
                         <div class="detail-panel-box">
                             <div class="panel-box-title">
                                 <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -1401,15 +1414,13 @@
                         </div>
                     </div>
 
-                    <!-- GRID SECTION 2: DAFTAR TRANSAKSI (Sepenuhnya Terpisah di Bawah) -->
+                    <!-- GRID SECTION 2: DAFTAR TRANSAKSI -->
                     <div class="transactions-section">
                         <div class="panel-box-title">
                             <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
                             Riwayat & Manajemen Transaksi Pengguna
                         </div>
-                        <div id="det-transactions-container" style="display: flex; flex-direction: column; gap: 12px;">
-                            <!-- Dynamic user transactions rendered here -->
-                        </div>
+                        <div id="det-transactions-container" style="display: flex; flex-direction: column; gap: 12px;"></div>
                     </div>
                 </div>
             </main>
@@ -1425,7 +1436,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-        import { getFirestore, collection, doc, getDoc, updateDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+        import { getFirestore, collection, doc, getDoc, updateDoc, setDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDlgpm04sI7Jweytg2IzTHgp8w-VM1SMKw",
@@ -1458,7 +1469,6 @@
             depositAlignment: 'center'
         };
 
-        // Sidebar Burger Toggle Logic
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebar-overlay');
         const burgerToggle = document.getElementById('burger-toggle');
@@ -1471,7 +1481,6 @@
         burgerToggle.addEventListener('click', toggleSidebar);
         sidebarOverlay.addEventListener('click', toggleSidebar);
 
-        // Theme Switcher Logic
         const themeToggleBtn = document.getElementById('theme-toggle');
         const themeIcon = document.getElementById('theme-icon');
         const themeText = document.getElementById('theme-text');
@@ -1657,7 +1666,11 @@
                 renderAnalytics();
                 renderUserListView();
                 renderSidebarUsers();
-                if (selectedUserId) renderUserDetailView();
+                if (selectedUserId && !usersData[selectedUserId]) {
+                    showUserList(new Event('click'));
+                } else if (selectedUserId) {
+                    renderUserDetailView();
+                }
             });
 
             onSnapshot(collection(db, "portfolios"), (snapshot) => {
@@ -1790,7 +1803,6 @@
                 return;
             }
 
-            // 1. Filter berdasarkan pencarian
             if (searchQuery) {
                 userIds = userIds.filter(uid => {
                     const u = usersData[uid] || {};
@@ -1801,7 +1813,6 @@
                 });
             }
 
-            // 2. Urutkan berdasarkan Tanggal Bergabung
             const sortOrder = document.getElementById('sort-user-date')?.value || 'newest';
             userIds.sort((a, b) => {
                 const userA = usersData[a] || {};
@@ -1811,9 +1822,9 @@
                 const dateB = new Date(userB.createdAt || userB.tanggal || userB.joinedAt || 0).getTime();
 
                 if (sortOrder === 'oldest') {
-                    return dateA - dateB; // Lama ke baru
+                    return dateA - dateB;
                 } else {
-                    return dateB - dateA; // Baru ke lama (default)
+                    return dateB - dateA;
                 }
             });
 
@@ -1828,7 +1839,6 @@
                 const name = u.fullname || u.email || 'Tanpa Nama';
                 const initial = name.charAt(0).toUpperCase();
                 const addressText = u.alamat || u.address || 'Alamat belum diisi';
-                const txCount = (txDataMap[uid] || []).length;
                 
                 const rawJoinDate = u.createdAt || u.tanggal || u.joinedAt;
                 const formattedDate = rawJoinDate ? new Date(rawJoinDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }) : 'Tanggal tidak tercatat';
@@ -1867,20 +1877,17 @@
             document.getElementById('header-page-title').textContent = `Detail Pengguna: ${u.email || u.fullname || selectedUserId}`;
             document.getElementById('detail-user-email-header').textContent = u.email || u.fullname || '';
 
-            // Populate Profile & Address
             document.getElementById('det-fullname').textContent = u.fullname || '-';
             document.getElementById('det-email').textContent = u.email || '-';
             document.getElementById('det-whatsapp').textContent = u.whatsapp || u.phone || u.noWhatsApp || u.noWa || '-';
             document.getElementById('det-alamat').textContent = u.alamat || u.address || 'Belum ada alamat yang terdaftar.';
             document.getElementById('det-uid').textContent = selectedUserId;
 
-            // Populate Portfolio inputs
             document.getElementById('input-modal').value = p.modalUtama || 0;
             document.getElementById('input-profit').value = p.totalProfitTerkumpul || 0;
             document.getElementById('input-rate').value = p.rateHarian !== undefined ? p.rateHarian : 0.05;
             document.getElementById('input-undang').value = p.statusUndangTeman === 'sudah' ? 'sudah' : 'belum';
 
-            // Populate Transactions (Completely separated at bottom)
             const txContainer = document.getElementById('det-transactions-container');
             if (userTxs.length === 0) {
                 txContainer.innerHTML = `<div class="empty-state">Tidak ada riwayat transaksi untuk pengguna ini.</div>`;
@@ -1984,6 +1991,35 @@
                 showToast('Status transaksi berhasil diperbarui!');
             } catch (error) {
                 showToast('Gagal: ' + error.message, true);
+            }
+        }
+
+        window.hapusPenggunaAktif = async function() {
+            if (!selectedUserId) return;
+            if (!confirm("Apakah Anda yakin ingin menghapus pengguna ini beserta seluruh data portofolio dan riwayat transaksinya?")) return;
+
+            const uidToDelete = selectedUserId;
+            try {
+                // 1. Hapus dokumen profil pengguna
+                await deleteDoc(doc(db, "users", uidToDelete));
+
+                // 2. Hapus dokumen portofolio jika ada
+                try {
+                    await deleteDoc(doc(db, "portfolios", uidToDelete));
+                } catch(e) {}
+
+                // 3. Hapus seluruh riwayat transaksi milik pengguna ini
+                const userTxs = txDataMap[uidToDelete] || [];
+                for (const tx of userTxs) {
+                    try {
+                        await deleteDoc(doc(db, "transactions", tx.id));
+                    } catch(e) {}
+                }
+
+                showToast('Pengguna berhasil dihapus dari sistem.');
+                showUserList(new Event('click'));
+            } catch (error) {
+                showToast('Gagal menghapus pengguna: ' + error.message, true);
             }
         }
     </script>
