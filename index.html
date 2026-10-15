@@ -514,6 +514,12 @@
             .admin-support-chat-messages { min-height: 220px; }
         }
 
+        @media (max-width: 640px) {
+            .admin-support-chat-form { flex-direction: column; align-items: stretch; gap: 9px; padding: 12px; }
+            .admin-support-chat-form textarea { width: 100%; min-height: 92px; max-height: 160px; flex: 0 0 auto; resize: vertical; font-size: 16px; }
+            .admin-support-chat-form .btn { align-self: flex-end; min-width: 104px; min-height: 42px; justify-content: center; }
+        }
+
         .section-header {
             display: flex;
             justify-content: space-between;
